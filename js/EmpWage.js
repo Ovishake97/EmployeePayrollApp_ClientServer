@@ -38,11 +38,15 @@ const save = (event) =>
     event.preventDefault();
     event.stopPropagation();
     try {
-        setEmployeePayrollObject(); 
+      setEmployeePayrollObject(); 
+      if(site_properties.use_local_storage.match(true)){
         createAndUpdateStorage();
         resetForm();
-        window.location.replace(site_properties.home_page);    
-        
+        window.location.replace(site_properties.home_page);
+      }
+      else {
+        createOrUpdateEmployeePayroll();
+      }
     } catch (e) {
         alert(e);
         return;
@@ -91,7 +95,22 @@ function createAndUpdateStorage() {
       JSON.stringify(employeePayrollList)
     );
   }
-  
+  const createOrUpdateEmployeePayroll = () => {
+    let postURL = site_properties.server_url;
+    let methodCall = "POST";
+    if (isUpdate) {
+      methodCall = "PUT";
+      postURL = postURL + employeePayrollObj.id.toString();
+    }
+    makeServiceCall(methodCall, postURL, true, employeePayrollObj)
+      .then((responseText) => {
+        resetForm();
+        window.location.replace(site_properties.home_page);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 const createNewEmployeeId = () => {
     let empID = localStorage.getItem("EmployeeID");
     empID = !empID ? 1 : (parseInt(empID) + 1).toString();
