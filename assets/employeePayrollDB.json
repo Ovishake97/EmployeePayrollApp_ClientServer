@@ -36,20 +36,6 @@
       "_note": "",
       "_profilePic": "../assets/emp4.png",
       "id": 3
-    },
-    {
-      "_name": "Nishant",
-      "_profilePic": "../assets/emp1.png",
-      "_gender": "male",
-      "_department": [
-        "Sales",
-        "Finance",
-        "Engineer"
-      ],
-      "_salary": "449000",
-      "_note": "Good manager and engineer",
-      "_startDate": "20 Nov 2020",
-      "id": 4
     }
   ]
 }
